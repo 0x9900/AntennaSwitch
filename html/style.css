@@ -1,0 +1,12 @@
+
+html{font-family: Helvetica; display:inline-block; margin: 0px auto; text-align: center;}
+h1{color: #ff8800; padding: 2px;}
+h2{color: #0F3376;}
+a{text-decoration: none;}
+p{font-size: 1.2em;}
+address{color: #333; font-size: .8em}
+.ports{padding: 10px; text-align: center;}
+.button{display: inline-block; background-color: #e7bd3b; border: none;border-radius: 4px; color: white;
+        padding: 12px 20px; text-decoration: none; font-size: 18px; margin: 2px; cursor: pointer;}
+.button:hover{background-color: #ff8800;}
+.selected{background-color: #4286f4;}

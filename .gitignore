@@ -1,0 +1,11 @@
+.DS_Store
+*~
+*.pyc
+*.mpy
+config.py
+/pexec.egg-info/
+/build/
+/dist/
+scratch_pad.py
+misc/*.json
+test*

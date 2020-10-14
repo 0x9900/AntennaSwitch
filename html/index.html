@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Antenna Switch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="/style.css" rel="stylesheet">
+    <link rel="icon" href="data:,">
+  </head>
+  <body onload="showPorts()">
+    <h1>W6BSD</h1>
+    <h2>Remote Antenna Switch</h2>
+    <hr>
+    <div id="ports" class="ports">
+      <button id="btn1" class="button" onclick="selectAntenna(1)"> </button>
+      <button id="btn2" class="button" onclick="selectAntenna(2)"> </button>
+      <button id="btn3" class="button" onclick="selectAntenna(3)"> </button>
+      <button id="btn4" class="button" onclick="selectAntenna(4)"> </button>
+    </div>
+    <hr>
+    <address>
+      Remote Antenna Switch by W6BSD<br/>
+      More info at <a href="https://github.com/0x9900/">https://github.com/0x9900/
+    </address>
+    <script type="text/javascript">
+      function selectAntenna(port) {
+	  $.getJSON('/api/v1/select/' + port);
+	  showPorts()
+      }
+      function showPorts() {
+	  var SwitchAPI = "/api/v1/ports";
+	  $.getJSON(SwitchAPI)
+	      .done(function(data) {
+		  $.each(data, function(k, v) {
+		      $("#btn" + k).text(v.label);
+		      if (v.status == 1) {
+			  $("#btn" + k).addClass('selected');
+		      } else {
+			  $("#btn" + k).removeClass('selected');
+		      }
+		  });
+	      })
+	      .fail(function() {
+		  console.log("error");
+	      })
+      }
+      function auto() {
+	  showPorts()
+	  setTimeout(auto, 2500);
+      }
+      </script>
+  </body>
+</html>

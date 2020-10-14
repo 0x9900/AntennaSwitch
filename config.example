@@ -1,0 +1,22 @@
+#
+# Edit this file, enter your network credentials and rename it config.py
+#
+
+SSID='<wifi ssid>'
+PASSWORD='<wifi password>'
+
+PORTS = {
+  1: Pin(5, Pin.OUT),    # GPIO(5)  D1
+  2: Pin(4, Pin.OUT),    # GPIO(4)  D2
+  3: Pin(12, Pin.OUT),   # GPIO(13) D3
+  4: Pin(13, Pin.OUT),   # GPIO(12) D6
+}
+
+LABELS = {
+  1: "Hustler",
+  2: "Dipole 80m",
+  3: "Dipole 40m",
+  4: "N/C",
+}
+
+HEARTBEAT_LED = 2
