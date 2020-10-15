@@ -95,7 +95,7 @@ class Server:
           await self.send_json(swriter, {'status': 'OK', 'port': port, 'msg': 'Port {:d} selected'.format(port)})
         except (KeyError, ValueError):
           await self.send_json(swriter, {
-            'status': 'ERROR', 'msg': 'Invalid port {}'.format(port.decode())
+            'status': 'ERROR', 'msg': 'Invalid port {}'.format(port)
           })
           gc.collect()
       else:
