@@ -2,6 +2,21 @@
 
 ## This work is in progress
 
+I am currently working on that project on my free time. I have been
+working on the controller and had to fix some minor issues.
+
+Here is the list of items that I need to work on next:
+
+  - The HF switching. The part handling HF will be on a separate board
+    well grounded and shielded from the main controller.
+  - The Bias-T power injection. The 12 volt for the relay box
+    will be injected through the coaxial cable.
+  - Remote control. The antenna switch can be controlled with a
+    computer or a phone, but I would like to have a small remote
+    control on my desk next to my radio.
+
+## Project
+
 This Remote Coax Switch lets you remotely using your home WiFi, switch
 up to four HF antennas. The DC power used by the switch is injected
 into the coax power using a Bias T. There is no need to run long wires
