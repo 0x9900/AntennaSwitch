@@ -7,7 +7,7 @@
     <link href="/style.css" rel="stylesheet">
     <link rel="icon" href="data:,">
   </head>
-  <body onload="showPorts()">
+  <body onload="monitorPorts()">
     <h1>W6BSD</h1>
     <h2>Remote Antenna Switch</h2>
     <hr>
@@ -20,11 +20,11 @@
     <hr>
     <address>
       Remote Antenna Switch by W6BSD<br/>
-      More info at <a href="https://github.com/0x9900/AntennaSwitch/">https://github.com/0x9900/AntennaSwitch
+      More info at <a href="https://github.com/0x9900/AntennaSwitch/">https://github.com/0x9900/AntennaSwitch</a>
     </address>
     <script type="text/javascript">
       function selectAntenna(port) {
-	  $.getJSON('/api/v1/select/' + port);
+	  $.getJSON("/api/v1/select/" + port);
 	  showPorts()
       }
       function showPorts() {
@@ -34,9 +34,10 @@
 		  $.each(data, function(k, v) {
 		      $("#btn" + k).text(v.label);
 		      if (v.status == 1) {
-			  $("#btn" + k).addClass('selected');
+			  console.log("Port " + k + " active");
+			  $("#btn" + k).addClass("selected");
 		      } else {
-			  $("#btn" + k).removeClass('selected');
+			  $("#btn" + k).removeClass("selected");
 		      }
 		  });
 	      })
@@ -44,9 +45,9 @@
 		  console.log("error");
 	      })
       }
-      function auto() {
-	  showPorts()
-	  setTimeout(auto, 2500);
+      function monitorPorts() {
+	  showPorts();
+	  setTimeout(monitorPorts, 2500);
       }
       </script>
   </body>
