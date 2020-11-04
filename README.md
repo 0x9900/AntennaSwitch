@@ -59,10 +59,6 @@ You can request the status of all the ports using the following command.
 
     curl -s http://192.168.10.148:8088/api/v1/ports | ppjson
     {
-        "4": {
-            "label": "N/C",
-            "status": 0
-        },
         "1": {
             "label": "Hustler",
             "status": 1
@@ -74,9 +70,22 @@ You can request the status of all the ports using the following command.
         "3": {
             "label": "Isotropic",
             "status": 0
+        },
+		"4": {
+            "label": "N/C",
+            "status": 0
         }
     }
 
+
+## Final integration
+
+This following picture is an illustration of how I use that controller
+to switch HF antennas. I am only using three slots on the controller board
+only to control three relays. The antenna switch is powered using a
+bias-tee.
+
+![First prototype](misc/IMG_0691.JPG)
 
 
 [1]: https://docs.wemos.cc/en/latest/d1/d1_mini.html
