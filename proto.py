@@ -60,7 +60,7 @@ class Server:
         c_sock, addr = s_sock.accept()  # get client socket
         LOG.info('Connection from %s:%d', *addr)
         loop.create_task(self.process_request(c_sock))
-      await asyncio.sleep_ms(10)
+      await asyncio.sleep_ms(100)
 
   async def process_request(self, sock):
     LOG.info('Process request %s', sock)
