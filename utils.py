@@ -35,6 +35,9 @@ def all_off():
 def port_on(port):
   PORTS[port].on()
 
+def port_off(port):
+  PORTS[port].off()
+
 async def heartbeat():
   await asyncio.sleep(20)
   speed = 125
