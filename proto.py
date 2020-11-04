@@ -88,16 +88,7 @@ class Server:
       elif uri == b'/api/v1/ports':
         await self.get_ports(swriter)
       elif uri.startswith('/api/v1/select/'):
-        try:
-          port = int(uri.split(b'/')[-1])
-          all_off()
-          port_on(port)
-          await self.send_json(swriter, {'status': 'OK', 'port': port, 'msg': 'Port {:d} selected'.format(port)})
-        except (KeyError, ValueError):
-          await self.send_json(swriter, {
-            'status': 'ERROR', 'msg': 'Invalid port {}'.format(port)
-          })
-          gc.collect()
+        await self.switch_antenna(swriter, uri)
       else:
         await self.send_file(swriter, uri)
     except OSError:
@@ -110,12 +101,25 @@ class Server:
 
   async def switch_antenna(self, wfd, uri):
     try:
-      port = int(uri.split(b'/')[-1])
+      port = uri.split(b'/')[-1]
+      if not port.isdigit():
+        raise ValueError
+
+      port = int(port)
+      if port not in config.PORTS:
+        raise KeyError
+
       all_off()
       await asyncio.sleep_ms(10)
       port_on(port)
-    except ValueError:
-      pass
+    except (KeyError, ValueError):
+      await self.send_json(wfd, {'status': 'ERROR',
+                                 'msg': 'Invalid port {}'.format(port)
+                                 })
+    else:
+      await self.send_json(wfd, {'status': 'OK',
+                                 'port': port,
+                                 'msg': 'Port {:d} selected'.format(port)})
 
   async def get_ports(self, wfd):
     data = {}
