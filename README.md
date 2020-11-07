@@ -55,7 +55,8 @@ Replace the `1` after the word select with the switch number.
         "status": "OK"
     }
 
-You can request the status of all the ports using the following command.
+You can request the status of all the ports using the following
+command. Status `1` means the antenna is selected.
 
     curl -s http://192.168.10.148:8088/api/v1/ports | ppjson
     {
