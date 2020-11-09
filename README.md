@@ -1,6 +1,9 @@
 # Remote Antenna Switch
 
-## This work is in progress
+For more information on the Remote Antenna Switch you can visit my
+[blog post][1]. The antenna switch can be controlled using a web
+browser. You can also use the companion program [MacSwitch][2] giving
+a graphical user interface.
 
 I am currently working on that project on my free time. I have been
 working on the controller and had to fix some minor issues.
@@ -25,15 +28,15 @@ using the internet. Making it ideal for operating a remote station.
 
 ## Switch controller
 
-The controller board host an [ESP8266 Wemos D1][1]
+The controller board host an [ESP8266 Wemos D1][3]
 micro-controller. It takes up to 14 volts in input and up to 4
 switches can be connected. The antenna controller is programmed in
-[MicroPython][2].
+[MicroPython][4].
 
 The main goal for this controller is to develop an HF antenna switch
 but you can use this controller for any other DIY project.
 
-The schematics and PCB can be found on [EasyEDA][3]
+The schematics and PCB can be found on [EasyEDA][5]
 
 ![First prototype](misc/IMG_0680.JPG)
 
@@ -89,6 +92,8 @@ bias-tee.
 ![First prototype](misc/IMG_0691.JPG)
 
 
-[1]: https://docs.wemos.cc/en/latest/d1/d1_mini.html
-[2]: https://micropython.org
-[3]: https://easyeda.com/W6BSD/antennaswitch
+[1]: https://0x9900.com/remote-controlled-antenna-switch/
+[2]: https://github.com/0x9900/MacSwitch
+[3]: https://docs.wemos.cc/en/latest/d1/d1_mini.html
+[4]: https://micropython.org
+[5]: https://easyeda.com/W6BSD/antennaswitch
