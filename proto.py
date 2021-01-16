@@ -37,12 +37,14 @@ MIME_TYPES = {
   b'txt': 'text/plain',
 }
 
+
 class Server:
 
-  def __init__(self, addr='0.0.0.0', port=8088):
+  def __init__(self, ports, addr='0.0.0.0', port=8088):
     self.addr = addr
     self.port = port
     self.open_socks = []
+    self.ports = ports
 
   async def run(self, loop):
     addr = socket.getaddrinfo(self.addr, self.port, 0, socket.SOCK_STREAM)[0][-1]
@@ -106,25 +108,24 @@ class Server:
         raise ValueError
 
       port = int(port)
-      if port not in config.PORTS:
+      if port not in self.ports:
         raise KeyError
 
-      all_off()
+      self.ports.all_off()
       await asyncio.sleep_ms(10)
-      port_on(port)
+      self.ports.on(port)
     except (KeyError, ValueError):
       await self.send_json(wfd, {'status': 'ERROR',
-                                 'msg': 'Invalid port {}'.format(port)
-                                 })
+                                 'msg': 'Invalid port {}'.format(port)})
     else:
-      await self.send_json(wfd, {'status': 'OK',
-                                 'port': port,
+      await self.send_json(wfd, {'status': 'OK', 'port': port,
                                  'msg': 'Port {:d} selected'.format(port)})
 
   async def get_ports(self, wfd):
     data = {}
-    for port, gpio in sorted(config.PORTS.items()):
-      data[port] = {'status': gpio.value(), 'label': config.LABELS[port]}
+    for port, pdata in sorted(self.ports.items()):
+      gpio, label = pdata
+      data[port] = {'status': gpio.value(), 'label': label}
     await self.send_json(wfd, data)
     gc.collect()
 
@@ -191,8 +192,11 @@ class Server:
 
 def main():
   print("\n\n")
+  ports = APorts(config.PORTS)
+  LOG.info('Default port: %s on', config.DEFAULT_PORT)
+  ports.on(config.DEFAULT_PORT)
   wifi_connect(config.SSID, config.PASSWORD)
-  server = Server()
+  server = Server(ports=ports)
 
   loop = asyncio.get_event_loop()
   loop.create_task(server.run(loop))

@@ -9,10 +9,37 @@ import uasyncio as asyncio
 from machine import Pin
 from machine import WDT
 
-from config import HEARTBEAT_LED, PORTS
+HEARTBEAT_LED = 2
 
 logging.basicConfig(level=logging.INFO)
 LOG = logging.getLogger('utils.py')
+
+class APorts:
+  def __init__(self, ports):
+    self.ports = ports
+
+  def all_off(self):
+    for gpio, _ in self.ports.values():
+      gpio.off()
+
+  def on(self, port):
+    self.ports[port][0].on()
+
+  def off(self, port):
+    self.ports[port][0].off()
+
+  def label(self, port):
+    return self.ports[port][1]
+
+  def items(self):
+    return self.ports.items()
+
+  def keys(self):
+    return self.ports.keys()
+
+  def __contains__(self, key):
+    return key in self.ports
+
 
 def wifi_connect(ssid, password):
   ap_if = network.WLAN(network.AP_IF)
@@ -27,16 +54,6 @@ def wifi_connect(ssid, password):
   LOG.info('Network config: %s', sta_if.ifconfig())
   gc.collect()
   return sta_if
-
-def all_off():
-  for gpio in PORTS.values():
-    gpio.off()
-
-def port_on(port):
-  PORTS[port].on()
-
-def port_off(port):
-  PORTS[port].off()
 
 async def heartbeat():
   await asyncio.sleep(20)

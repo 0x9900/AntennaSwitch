@@ -1,25 +1,17 @@
 #
 # Edit this file, enter your network credentials and rename it config.py
 #
+from machine import Pin
 
 SSID='<wifi ssid>'
 PASSWORD='<wifi password>'
 
-HEARTBEAT_LED = 2
-
-# Ports labels.
-LABELS = {
-  1: "Hustler",
-  2: "Dipole 40/80",
-  3: "Isotropic",
-  4: "N/C",
-}
-
-# Ports GPIO
-from machine import Pin
+# Ports GPIO and labels
 PORTS = {
-  1: Pin(5, Pin.OUT),    # GPIO(5)  D1
-  2: Pin(4, Pin.OUT),    # GPIO(4)  D2
-  3: Pin(12, Pin.OUT),   # GPIO(13) D3
-  4: Pin(13, Pin.OUT),   # GPIO(12) D6
+  1: [Pin(5, Pin.OUT),  "Antenna 1"],   # GPIO(5)  D1
+  2: [Pin(4, Pin.OUT),  "Antenna 2"],   # GPIO(4)  D2
+  3: [Pin(12, Pin.OUT), "Antenna 3"],   # GPIO(13) D7
+  4: [Pin(13, Pin.OUT), "Antenna 4"],   # GPIO(12) D6
 }
+
+DEFAULT_PORT = 1
