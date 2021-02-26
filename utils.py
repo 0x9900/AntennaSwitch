@@ -8,6 +8,7 @@ import uasyncio as asyncio
 
 from machine import Pin
 from machine import WDT
+from machine import reset
 
 HEARTBEAT_LED = 2
 
@@ -49,8 +50,13 @@ def wifi_connect(ssid, password):
     LOG.info('Connecting to WiFi...')
     sta_if.active(True)
     sta_if.connect(ssid, password)
-    while not sta_if.isconnected():
+    for _ in range(60):        # 3 minutes
       time.sleep(1)
+      if sta_if.isconnected():
+        break
+    else:
+      reset()
+
   LOG.info('Network config: %s', sta_if.ifconfig())
   gc.collect()
   return sta_if

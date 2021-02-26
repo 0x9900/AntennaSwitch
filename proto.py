@@ -11,6 +11,9 @@ import usocket as socket
 import config
 from utils import *
 
+
+__version__ = "1.1"
+
 logging.basicConfig(level=logging.DEBUG)
 LOG = logging.getLogger('ANTENNA')
 
@@ -191,7 +194,7 @@ class Server:
     return b'\n'.join(headers) + b'\n\n'
 
 def main():
-  print("\n\n")
+  print("\n\nAntenna Switch version: {}\n".format(__version__))
   ports = APorts(config.PORTS)
   LOG.info('Default port: %s on', config.DEFAULT_PORT)
   ports.on(config.DEFAULT_PORT)
