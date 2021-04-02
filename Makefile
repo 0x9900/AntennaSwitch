@@ -1,6 +1,11 @@
+#
+# Make sure to define the right PORT
+# Check the FLASH_SIZE. My Wemos D1 had 4MB
+#
 
 PORT = /dev/cu.SLAB_USBtoUART3
 SPEED = 115200
+FLASH_SIZE = 4MB
 
 # Path to programs
 ESPTOOL = /opt/local/bin/esptool --port $(PORT) --baud $(SPEED)
@@ -42,5 +47,5 @@ erase:
 
 flash:
 	@echo "Be sure about MEMORY SIZE"
-	$(ESPTOOL) --port $(PORT) --baud 115200 write_flash --verify --flash_size=4MB 0 $(FIRMWARE)
+	$(ESPTOOL) --port $(PORT) --baud 115200 write_flash --verify --flash_size=$(FLASH_SIZE) 0 $(FIRMWARE)
 	@echo 'Power device again'
